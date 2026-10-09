@@ -1,0 +1,244 @@
+{
+  "meta": {
+    "title": "STØY / 26",
+    "date": "2026-10-17",
+    "venue": {
+      "name": "Sentrum Scene",
+      "address": "Arbeidergata 2, 0159 Oslo"
+    }
+  },
+  "hero": {
+    "eyebrow": "En natt / One night — 17.10.2026",
+    "titleMain": "STØY",
+    "titleYear": "26",
+    "subtitle": "Én kveld med nordisk støy / One night of Nordic noise",
+    "image": "/images/hero.jpg",
+    "imageAlt": "Publikum i motlys foran en opplyst scene",
+    "scrollCue": "Scroll"
+  },
+  "lineup": {
+    "title": "Line-up",
+    "meta": "8 artister - 2 scener / 8 artists - 2 stages",
+    "artists": [
+      {
+        "id": "aurora",
+        "name": "Aurora",
+        "city": "Bergen",
+        "genre": "Art-pop",
+        "tier": "headliner",
+        "role": "Headliner",
+        "time": "23:15",
+        "image": "/images/artists/aurora.jpg",
+        "imageAlt": "Portrett av Aurora på scenen",
+        "bio": {
+          "no": "Aurora har bygget et eget språk av folkemusikk og elektronika, og lukker kvelden på hovedscenen.",
+          "en": "Aurora has built a language of her own from folk music and electronics, and closes the night on the main stage."
+        }
+      },
+      {
+        "id": "kokoroko-nord",
+        "name": "Kokoroko Nord",
+        "city": "Oslo",
+        "genre": "Afrobeat",
+        "tier": "headliner",
+        "role": "Headliner",
+        "time": "21:30",
+        "image": "/images/artists/kokoroko-nord.jpg",
+        "imageAlt": "Blåserekke fotografert fra siden",
+        "bio": {
+          "no": "Åtte musikere, én blåserekke og en rytmeseksjon som nekter å stoppe.",
+          "en": "Eight musicians, one horn section and a rhythm section that refuses to stop."
+        }
+      },
+      {
+        "id": "sval",
+        "name": "SVAL",
+        "city": "Tromsø",
+        "genre": "Drone / ambient",
+        "tier": "support",
+        "role": "Support",
+        "time": "20:15",
+        "image": "/images/artists/sval.jpg",
+        "imageAlt": "Synthesizer i blått scenelys",
+        "bio": {
+          "no": "Lange, kalde flater satt sammen av feltopptak fra Kvaløya.",
+          "en": "Long, cold surfaces assembled from field recordings made on Kvaløya."
+        }
+      },
+      {
+        "id": "jaerv",
+        "name": "Jærv",
+        "city": "Stavanger",
+        "genre": "Post-punk",
+        "tier": "support",
+        "role": "Support",
+        "time": "19:30",
+        "image": "/images/artists/jaerv.jpg",
+        "imageAlt": "Vokalist med mikrofon tett på ansiktet",
+        "bio": {
+          "no": "Fire sanger på tjue minutter, og ingen av dem er lange nok til et refreng.",
+          "en": "Four songs in twenty minutes, and not one of them is long enough for a chorus."
+        }
+      },
+      {
+        "id": "halvbror",
+        "name": "Halvbror",
+        "city": "Trondheim",
+        "genre": "Indie",
+        "tier": "support",
+        "role": "Scene 2",
+        "time": "22:00",
+        "image": "/images/artists/halvbror.jpg",
+        "imageAlt": "Gitarist i rødt lys",
+        "bio": {
+          "no": "Gitarpop på trøndersk, skrevet i en kjeller på Svartlamon.",
+          "en": "Guitar pop in Trøndelag dialect, written in a basement in Svartlamon."
+        }
+      },
+      {
+        "id": "mimmi-k",
+        "name": "Mimmi K",
+        "city": "Göteborg",
+        "genre": "Club",
+        "tier": "support",
+        "role": "Scene 2",
+        "time": "00:30",
+        "image": "/images/artists/mimmi-k.jpg",
+        "imageAlt": "DJ bak et mikseoppsett",
+        "bio": {
+          "no": "Tar nattsettet på scene 2 og slipper det ikke før lysene kommer på.",
+          "en": "Takes the late set on stage 2 and does not let go until the lights come up."
+        }
+      },
+      {
+        "id": "ulveflokk",
+        "name": "Ulveflokk",
+        "city": "Oslo",
+        "genre": "Noise rock",
+        "tier": "support",
+        "role": "Scene 2",
+        "time": "20:45",
+        "image": "/images/artists/ulveflokk.jpg",
+        "imageAlt": "Trommeslager sett ovenfra",
+        "bio": {
+          "no": "Tre forsterkere mer enn rommet tåler, som er hele poenget.",
+          "en": "Three amplifiers more than the room can take, which is the entire point."
+        }
+      },
+      {
+        "id": "linnea-vik",
+        "name": "Linnea Vik",
+        "city": "Ålesund",
+        "genre": "Folk",
+        "tier": "support",
+        "role": "Åpner",
+        "time": "18:30",
+        "image": "/images/artists/linnea-vik.jpg",
+        "imageAlt": "Artist med fele foran en mørk bakgrunn",
+        "bio": {
+          "no": "Åpner kvelden alene med fele og en loopstasjon.",
+          "en": "Opens the night alone with a fiddle and a loop station."
+        }
+      }
+    ],
+    "reveal": {
+      "label": "Siste navn / Final name",
+      "name": "TO BE REVEALED",
+      "note": "Annonseres 1. september / Announced 1 September"
+    }
+  },
+  "tickets": {
+    "title": "Sikre plassen",
+    "meta": "Fyll inn - dra stubben for å sikre billetten din / Fill in - drag the stub to secure your ticket",
+    "tag": "En natt - Admit one - 17.10.2026",
+    "name": "STØY",
+    "edition": "/26",
+    "info": "Sentrum Scene, Oslo - Doors: 18:00 - 16+",
+    "price": {
+      "label": "Fra / From",
+      "amount": "690 NOK",
+      "note": "Early bird til 31.08"
+    },
+    "fields": {
+      "email": {
+        "label": "E-post / Email",
+        "placeholder": "navn@epost.no",
+        "invalid": "Sjekk e-postadressen / Check the email address"
+      },
+      "phone": {
+        "label": "Telefon / Phone",
+        "placeholder": "+47 400 00 000",
+        "invalid": "Åtte siffer, eller med landkode / Eight digits, or with country code"
+      }
+    },
+    "stub": {
+      "label": "Drag to claim",
+      "hint": "Dra stubben til høyre for å sikre billetten. Du kan også bruke piltastene."
+    },
+    "claimed": {
+      "title": "Plassen er sikret",
+      "note": "Vi sender bekreftelse på e-post / Confirmation is on its way"
+    }
+  },
+  "sponsors": [
+    { "name": "NORDLYS", "font": "archivo" },
+    { "name": "Kulturrådet", "font": "grotesk" },
+    { "name": "BYLARM", "font": "archivo" },
+    { "name": "Studentsamskipnaden", "font": "grotesk" },
+    { "name": "FJORD FM", "font": "mono" },
+    { "name": "Oslo kommune", "font": "grotesk" }
+  ],
+  "faq": {
+    "title": "Spørsmål / Questions",
+    "items": [
+      {
+        "id": "faq-doors",
+        "q": { "no": "Når åpner dørene?", "en": "When do doors open?" },
+        "a": {
+          "no": "Dørene åpner 18:00, og første artist går på 18:30.",
+          "en": "Doors open at 18:00, and the first act goes on at 18:30."
+        }
+      },
+      {
+        "id": "faq-age",
+        "q": { "no": "Er det aldersgrense?", "en": "Is there an age limit?" },
+        "a": {
+          "no": "16 år. Ta med legitimasjon - vi sjekker i døra.",
+          "en": "16 and over. Bring ID, we check at the door."
+        }
+      },
+      {
+        "id": "faq-refund",
+        "q": { "no": "Kan jeg få pengene tilbake?", "en": "Can I get a refund?" },
+        "a": {
+          "no": "Billetter refunderes fram til 1. oktober. Etter det kan de overdras til andre.",
+          "en": "Tickets are refundable until 1 October. After that they can be transferred to someone else."
+        }
+      },
+      {
+        "id": "faq-travel",
+        "q": { "no": "Hvordan kommer jeg meg dit?", "en": "How do I get there?" },
+        "a": {
+          "no": "Sentrum Scene ligger fem minutter fra Oslo S. Trikk 11, 17 og 18 stopper på Welhavens gate.",
+          "en": "Sentrum Scene is five minutes from Oslo Central Station. Trams 11, 17 and 18 stop at Welhavens gate."
+        }
+      },
+      {
+        "id": "faq-accessibility",
+        "q": { "no": "Er lokalet tilgjengelig med rullestol?", "en": "Is the venue wheelchair accessible?" },
+        "a": {
+          "no": "Ja. Det er trinnfri inngang fra Arbeidergata og egen plass foran scenen - send oss en e-post i forkant.",
+          "en": "Yes. Step-free entrance from Arbeidergata and a dedicated space by the stage - email us in advance."
+        }
+      },
+      {
+        "id": "faq-cloakroom",
+        "q": { "no": "Koster garderoben noe?", "en": "Is the cloakroom free?" },
+        "a": {
+          "no": "Garderoben er inkludert i billetten, og er bemannet hele kvelden.",
+          "en": "The cloakroom is included in your ticket and is staffed all evening."
+        }
+      }
+    ]
+  }
+}

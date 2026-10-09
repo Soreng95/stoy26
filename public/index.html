@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  Served straight off Vercel's CDN at /, before any function runs.
+  Vercel's routing checks the filesystem before it applies the rewrite in
+  vercel.json, which is why this file wins over the Nest app for "/" only.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>STØY / 26 content API</title>
+    <style>
+      :root { color-scheme: dark; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-content: center;
+        gap: 24px;
+        padding: 32px;
+        background: #160a12;
+        color: #fff2ea;
+        font: 16px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      h1 { margin: 0; font-size: 20px; letter-spacing: 0.2em; text-transform: uppercase; }
+      p { margin: 0; color: rgba(255, 242, 234, 0.55); }
+      ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+      a { color: #ff7a33; }
+      a:hover { color: #1ecf9a; }
+    </style>
+  </head>
+  <body>
+    <h1>STØY / 26 content API</h1>
+    <p>Read-only content for the poster site. No keys, no write endpoints.</p>
+    <ul>
+      <li><a href="/docs">/docs</a> — Swagger UI</li>
+      <li><a href="/docs/openapi.json">/docs/openapi.json</a> — the OpenAPI spec</li>
+      <li><a href="/content">/content</a> — the whole document</li>
+      <li><a href="/content/tickets">/content/tickets</a> — one section</li>
+    </ul>
+  </body>
+</html>
