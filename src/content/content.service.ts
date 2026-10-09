@@ -1,42 +1,53 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
+import { isoDate, isoTimestamp, oneOf, wholeNumber } from './content.guards';
 import rawContent from './data/stoy26.json';
-import { ARTIST_TIERS, ArtistTier, SiteContentDto } from './dto';
+import { ARTIST_TIERS, CURRENCIES, SPONSOR_FONTS, SiteContentDto } from './dto';
 
 /**
- * Narrow one string from the JSON file into the union the DTO promises.
+ * The content document, checked against the contract in two passes.
  *
- * TypeScript reads a .json file and widens every string to `string`, so the
- * literal union `'headliner' | 'support'` cannot survive the import on its
- * own. This function is the seam: it fails loudly at startup rather than
- * serving `tier: "headlinr"` to a frontend that will silently render nothing.
- */
-function toArtistTier(value: string, artistId: string): ArtistTier {
-  if ((ARTIST_TIERS as readonly string[]).includes(value)) {
-    return value as ArtistTier;
-  }
-  throw new Error(
-    `stoy26.json: artist "${artistId}" has tier "${value}". Expected one of: ${ARTIST_TIERS.join(', ')}.`,
-  );
-}
-
-/**
- * The content document, checked against the contract at build time.
- *
- * `satisfies` is doing the real work here: if the JSON loses a field that
- * SiteContentDto requires, `pnpm build` fails with the path to the missing
- * key. That is the whole reason this API exists instead of the frontend
- * importing a JSON file directly — the contract is checked in one place.
+ * `satisfies SiteContentDto` at the bottom is the compile-time half: lose a
+ * key the DTOs require and `pnpm build` fails, naming it. The guards are the
+ * runtime half, for the three things a .json import cannot express — literal
+ * unions, integers, and timestamps that parse. Between them, serving a
+ * half-valid document is not a state this API can reach.
  */
 const CONTENT = {
   ...rawContent,
+
+  meta: {
+    ...rawContent.meta,
+    date: isoDate(rawContent.meta.date, 'meta.date'),
+    doorsAt: isoTimestamp(rawContent.meta.doorsAt, 'meta.doorsAt'),
+    minimumAge: wholeNumber(rawContent.meta.minimumAge, 'meta.minimumAge'),
+  },
+
   lineup: {
     ...rawContent.lineup,
     artists: rawContent.lineup.artists.map((artist) => ({
       ...artist,
-      tier: toArtistTier(artist.tier, artist.id),
+      tier: oneOf(ARTIST_TIERS, artist.tier, `lineup.artists[${artist.id}].tier`),
+      startsAt: isoTimestamp(artist.startsAt, `lineup.artists[${artist.id}].startsAt`),
     })),
   },
+
+  tickets: {
+    ...rawContent.tickets,
+    price: {
+      ...rawContent.tickets.price,
+      from: {
+        amountMinor: wholeNumber(rawContent.tickets.price.from.amountMinor, 'tickets.price.from.amountMinor'),
+        currency: oneOf(CURRENCIES, rawContent.tickets.price.from.currency, 'tickets.price.from.currency'),
+      },
+      earlyBirdUntil: isoDate(rawContent.tickets.price.earlyBirdUntil, 'tickets.price.earlyBirdUntil'),
+    },
+  },
+
+  sponsors: rawContent.sponsors.map((sponsor) => ({
+    ...sponsor,
+    font: oneOf(SPONSOR_FONTS, sponsor.font, `sponsors[${sponsor.name}].font`),
+  })),
 } satisfies SiteContentDto;
 
 export const CONTENT_SECTIONS = ['meta', 'hero', 'lineup', 'tickets', 'sponsors', 'faq'] as const;

@@ -34,8 +34,14 @@ export class ArtistDto {
   @ApiProperty({ example: 'Headliner', description: 'The label printed on the card.' })
   role!: string;
 
-  @ApiProperty({ example: '23:15', description: 'Stage time, HH:mm.' })
-  time!: string;
+  @ApiProperty({
+    example: '2026-10-17T23:15:00+02:00',
+    format: 'date-time',
+    description:
+      'When this act goes on. A full timestamp, not "23:15", because the night runs past midnight: ' +
+      'the 00:30 set is on the 18th. Sorting the old HH:mm strings put it first on the bill instead of last.',
+  })
+  startsAt!: string;
 
   @ApiProperty({ example: '/images/artists/aurora.jpg' })
   image!: string;

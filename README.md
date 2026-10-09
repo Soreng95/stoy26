@@ -11,10 +11,10 @@ JSON live?* It lives here, in one place, with a contract the compiler enforces.
 
 ```bash
 pnpm install
-pnpm dev          # http://localhost:3001
+pnpm dev          # http://localhost:8080
 ```
 
-Port 3001, because the frontend pins 3000 in its `vite.config.js`.
+Port 8080. The frontend pins 3000 in its `vite.config.js`, so the two never collide.
 
 | URL | What |
 | --- | --- |
@@ -30,7 +30,7 @@ pattern as the `ducks` array in the teaching repo, just with the data arriving
 a moment later:
 
 ```jsx
-const API = import.meta.env.VITE_API_URL ?? "http://localhost:3001";
+const API = import.meta.env.VITE_API_URL ?? "http://localhost:8080";
 
 const [content, setContent] = useState(null);
 
@@ -65,6 +65,52 @@ pnpm dlx openapi-typescript openapi.json -o src/types/content.d.ts
 
 Same source for the docs and the types, so they cannot disagree.
 
+## Numbers are numbers
+
+A string is only the right type for text a human wrote. Everything else is
+modelled as what it is, so the frontend never has to parse its own API:
+
+| Field | Was | Is | Why |
+| --- | --- | --- | --- |
+| `tickets.price` | `"690 NOK"` | `{ from: { amountMinor: 69000, currency: "NOK" } }` | Amount and currency are two facts. Minor units are integers, and integers do not drift |
+| `tickets.price.earlyBirdUntil` | baked into `note` | `"2026-08-31"` | The offer can expire by itself instead of by someone editing copy |
+| `lineup.artists[].time` | `"23:15"` | `startsAt: "2026-10-18T00:30:00+02:00"` | The night runs past midnight — see below |
+| `meta.doorsAt` | inside an `info` string | `"2026-10-17T18:00:00+02:00"` | Comparable with the stage times |
+| `meta.minimumAge` | `"16+"` inside a string | `16` | `"16+"` is typography |
+| `sponsors[].font` | `string` | `'archivo' \| 'grotesk' \| 'mono'` | `"archvio"` used to type-check fine and silently fall back |
+
+The stage times were an actual bug, not just a cosmetic type. Mimmi K plays at
+00:30, which is the 18th. Sorted as `"00:30"` she came *first* on the bill;
+sorted as a timestamp she is last, where she belongs:
+
+```
+18:30 Linnea Vik → 19:30 Jærv → … → 23:15 Aurora → 00:30 Mimmi K
+```
+
+Formatting is the view's job, and the platform already does it — no library,
+and the reader's own locale decides:
+
+```js
+new Intl.NumberFormat("nb-NO", {
+  style: "currency", currency: price.from.currency, maximumFractionDigits: 0,
+}).format(price.from.amountMinor / 100);           // "690 kr"   (en-GB: "NOK 690")
+
+new Intl.DateTimeFormat("nb-NO", {
+  hour: "2-digit", minute: "2-digit",
+}).format(new Date(artist.startsAt));              // "23:15"
+```
+
+### Breaking change for the tickets section
+
+`price.amount` is gone. `Tickets.jsx:48` reads it today, so that line needs to
+become the `Intl.NumberFormat` call above. One line, and `pnpm openapi` +
+generated types will point at it.
+
+`tickets.info` is left alone on purpose — it is still the typeset line the
+merged #13 renders. It now duplicates `venue.name`, `doorsAt` and
+`minimumAge`, so it is a candidate for being composed in the component later;
+that is a change to make deliberately, not as a side effect of this one.
+
 ## How the types are kept honest
 
 Three layers, none of which rely on anyone remembering anything:
@@ -81,10 +127,22 @@ Three layers, none of which rely on anyone remembering anything:
    error TS1360: … Property 'note' is missing in type
    '{ label: string; amount: string; }' but required in type 'TicketPriceDto'.
    ```
-3. **The one thing types cannot see is guarded at runtime.** TypeScript widens
-   every string in a `.json` import to `string`, so the union
-   `'headliner' | 'support'` cannot survive the import. `toArtistTier()` checks it
-   on startup and refuses to boot on `tier: "headlinr"` rather than serving it.
+3. **What types cannot see is guarded at runtime.** A `.json` import widens
+   every string to `string` and every number to `number`, so literal unions,
+   integers and parseable timestamps need `src/content/content.guards.ts`.
+   They run once at startup and refuse to boot, naming the key:
+
+   ```
+   stoy26.json: tickets.price.from.currency is "KR". Expected one of: NOK, SEK, DKK, EUR.
+   stoy26.json: tickets.price.from.amountMinor is 690.5. Expected a whole number of 0 or more.
+   stoy26.json: lineup.artists[aurora].startsAt is "2026-10-17T23:15:00". Expected an ISO
+     timestamp with an offset, e.g. 2026-10-17T23:15:00+02:00.
+   stoy26.json: sponsors[NORDLYS].font is "archvio". Expected one of: archivo, grotesk, mono.
+   ```
+
+   The offset is required rather than optional: a timestamp without one is read
+   as local time by every browser, so the same stage time would render an hour
+   apart in Oslo and London.
 
 ## Deploying to Vercel
 
@@ -102,6 +160,11 @@ source:
   `SWAGGER_CDN` in `src/bootstrap.ts`.
 - **The bootstrap promise is cached, not the app.** A cold start can take two
   requests at once; awaiting one promise starts Nest once. See `api/index.ts`.
+- **The OpenAPI `servers` list is relative, not hardcoded.** `'/'` resolves
+  against whatever origin serves the docs. An absolute `localhost` URL here
+  makes the deployed "Try it out" button fetch the *reader's* machine over
+  http from an https page, which fails as a CORS error. See `apiServers()`
+  in `src/bootstrap.ts`.
 
 Responses carry `Cache-Control: s-maxage=300`, so Vercel's CDN answers most
 requests without waking the function.
@@ -115,7 +178,10 @@ version into the issue as the final one, or tell me to change it back:
 
 | Change | Why |
 | --- | --- |
-| `tickets.price` is `{ label, amount, note }`, not a string | The ticket typesets the three parts separately — see `Tickets.jsx:47-49` |
+| `tickets.price` is `{ label, from: { amountMinor, currency }, note, earlyBirdUntil }` | An amount is a number and a currency, not a string — see "Numbers are numbers" above |
+| `lineup.artists[].time` became `startsAt`, a full timestamp | `"00:30"` sorted the night's last act first |
+| `meta` gained `doorsAt` and `minimumAge` | They were buried inside a display string |
+| `sponsors[].font` is a union, not a string | Only three faces exist |
 | `tickets` gains `title`, `meta`, `name`, `edition` | #13 renders all four; they were missing from the proposal |
 | `tickets.fields` / `.claimed` are filled in, not `{}` | So #14 and #16 do not each invent their own keys |
 | `faq` is `{ title, items[] }`, not a bare array | The section needs a heading too |

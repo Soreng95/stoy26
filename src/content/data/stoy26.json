@@ -2,6 +2,8 @@
   "meta": {
     "title": "STØY / 26",
     "date": "2026-10-17",
+    "doorsAt": "2026-10-17T18:00:00+02:00",
+    "minimumAge": 16,
     "venue": {
       "name": "Sentrum Scene",
       "address": "Arbeidergata 2, 0159 Oslo"
@@ -27,7 +29,7 @@
         "genre": "Art-pop",
         "tier": "headliner",
         "role": "Headliner",
-        "time": "23:15",
+        "startsAt": "2026-10-17T23:15:00+02:00",
         "image": "/images/artists/aurora.jpg",
         "imageAlt": "Portrett av Aurora på scenen",
         "bio": {
@@ -42,7 +44,7 @@
         "genre": "Afrobeat",
         "tier": "headliner",
         "role": "Headliner",
-        "time": "21:30",
+        "startsAt": "2026-10-17T21:30:00+02:00",
         "image": "/images/artists/kokoroko-nord.jpg",
         "imageAlt": "Blåserekke fotografert fra siden",
         "bio": {
@@ -57,7 +59,7 @@
         "genre": "Drone / ambient",
         "tier": "support",
         "role": "Support",
-        "time": "20:15",
+        "startsAt": "2026-10-17T20:15:00+02:00",
         "image": "/images/artists/sval.jpg",
         "imageAlt": "Synthesizer i blått scenelys",
         "bio": {
@@ -72,7 +74,7 @@
         "genre": "Post-punk",
         "tier": "support",
         "role": "Support",
-        "time": "19:30",
+        "startsAt": "2026-10-17T19:30:00+02:00",
         "image": "/images/artists/jaerv.jpg",
         "imageAlt": "Vokalist med mikrofon tett på ansiktet",
         "bio": {
@@ -87,7 +89,7 @@
         "genre": "Indie",
         "tier": "support",
         "role": "Scene 2",
-        "time": "22:00",
+        "startsAt": "2026-10-17T22:00:00+02:00",
         "image": "/images/artists/halvbror.jpg",
         "imageAlt": "Gitarist i rødt lys",
         "bio": {
@@ -102,7 +104,7 @@
         "genre": "Club",
         "tier": "support",
         "role": "Scene 2",
-        "time": "00:30",
+        "startsAt": "2026-10-18T00:30:00+02:00",
         "image": "/images/artists/mimmi-k.jpg",
         "imageAlt": "DJ bak et mikseoppsett",
         "bio": {
@@ -117,7 +119,7 @@
         "genre": "Noise rock",
         "tier": "support",
         "role": "Scene 2",
-        "time": "20:45",
+        "startsAt": "2026-10-17T20:45:00+02:00",
         "image": "/images/artists/ulveflokk.jpg",
         "imageAlt": "Trommeslager sett ovenfra",
         "bio": {
@@ -132,7 +134,7 @@
         "genre": "Folk",
         "tier": "support",
         "role": "Åpner",
-        "time": "18:30",
+        "startsAt": "2026-10-17T18:30:00+02:00",
         "image": "/images/artists/linnea-vik.jpg",
         "imageAlt": "Artist med fele foran en mørk bakgrunn",
         "bio": {
@@ -156,8 +158,12 @@
     "info": "Sentrum Scene, Oslo - Doors: 18:00 - 16+",
     "price": {
       "label": "Fra / From",
-      "amount": "690 NOK",
-      "note": "Early bird til 31.08"
+      "from": {
+        "amountMinor": 69000,
+        "currency": "NOK"
+      },
+      "note": "Early bird til 31.08",
+      "earlyBirdUntil": "2026-08-31"
     },
     "fields": {
       "email": {
@@ -181,19 +187,40 @@
     }
   },
   "sponsors": [
-    { "name": "NORDLYS", "font": "archivo" },
-    { "name": "Kulturrådet", "font": "grotesk" },
-    { "name": "BYLARM", "font": "archivo" },
-    { "name": "Studentsamskipnaden", "font": "grotesk" },
-    { "name": "FJORD FM", "font": "mono" },
-    { "name": "Oslo kommune", "font": "grotesk" }
+    {
+      "name": "NORDLYS",
+      "font": "archivo"
+    },
+    {
+      "name": "Kulturrådet",
+      "font": "grotesk"
+    },
+    {
+      "name": "BYLARM",
+      "font": "archivo"
+    },
+    {
+      "name": "Studentsamskipnaden",
+      "font": "grotesk"
+    },
+    {
+      "name": "FJORD FM",
+      "font": "mono"
+    },
+    {
+      "name": "Oslo kommune",
+      "font": "grotesk"
+    }
   ],
   "faq": {
     "title": "Spørsmål / Questions",
     "items": [
       {
         "id": "faq-doors",
-        "q": { "no": "Når åpner dørene?", "en": "When do doors open?" },
+        "q": {
+          "no": "Når åpner dørene?",
+          "en": "When do doors open?"
+        },
         "a": {
           "no": "Dørene åpner 18:00, og første artist går på 18:30.",
           "en": "Doors open at 18:00, and the first act goes on at 18:30."
@@ -201,7 +228,10 @@
       },
       {
         "id": "faq-age",
-        "q": { "no": "Er det aldersgrense?", "en": "Is there an age limit?" },
+        "q": {
+          "no": "Er det aldersgrense?",
+          "en": "Is there an age limit?"
+        },
         "a": {
           "no": "16 år. Ta med legitimasjon - vi sjekker i døra.",
           "en": "16 and over. Bring ID, we check at the door."
@@ -209,7 +239,10 @@
       },
       {
         "id": "faq-refund",
-        "q": { "no": "Kan jeg få pengene tilbake?", "en": "Can I get a refund?" },
+        "q": {
+          "no": "Kan jeg få pengene tilbake?",
+          "en": "Can I get a refund?"
+        },
         "a": {
           "no": "Billetter refunderes fram til 1. oktober. Etter det kan de overdras til andre.",
           "en": "Tickets are refundable until 1 October. After that they can be transferred to someone else."
@@ -217,7 +250,10 @@
       },
       {
         "id": "faq-travel",
-        "q": { "no": "Hvordan kommer jeg meg dit?", "en": "How do I get there?" },
+        "q": {
+          "no": "Hvordan kommer jeg meg dit?",
+          "en": "How do I get there?"
+        },
         "a": {
           "no": "Sentrum Scene ligger fem minutter fra Oslo S. Trikk 11, 17 og 18 stopper på Welhavens gate.",
           "en": "Sentrum Scene is five minutes from Oslo Central Station. Trams 11, 17 and 18 stop at Welhavens gate."
@@ -225,7 +261,10 @@
       },
       {
         "id": "faq-accessibility",
-        "q": { "no": "Er lokalet tilgjengelig med rullestol?", "en": "Is the venue wheelchair accessible?" },
+        "q": {
+          "no": "Er lokalet tilgjengelig med rullestol?",
+          "en": "Is the venue wheelchair accessible?"
+        },
         "a": {
           "no": "Ja. Det er trinnfri inngang fra Arbeidergata og egen plass foran scenen - send oss en e-post i forkant.",
           "en": "Yes. Step-free entrance from Arbeidergata and a dedicated space by the stage - email us in advance."
@@ -233,7 +272,10 @@
       },
       {
         "id": "faq-cloakroom",
-        "q": { "no": "Koster garderoben noe?", "en": "Is the cloakroom free?" },
+        "q": {
+          "no": "Koster garderoben noe?",
+          "en": "Is the cloakroom free?"
+        },
         "a": {
           "no": "Garderoben er inkludert i billetten, og er bemannet hele kvelden.",
           "en": "The cloakroom is included in your ticket and is staffed all evening."

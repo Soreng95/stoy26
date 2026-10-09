@@ -14,8 +14,37 @@ import { AppModule } from './app.module';
  */
 const SWAGGER_CDN = 'https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.17.14';
 
+/**
+ * Which base URLs the "Try it out" button is allowed to call.
+ *
+ * A relative '/' resolves against whatever origin is serving the docs:
+ * localhost under `pnpm dev`, the vercel.app domain in production. It goes
+ * first because Swagger UI picks the first entry by default — a hardcoded
+ * absolute URL here is how the deployed docs ended up trying to fetch the
+ * reader's own machine over http from an https page.
+ *
+ * VERCEL and VERCEL_PROJECT_PRODUCTION_URL are set by Vercel itself. Neither
+ * is a secret, and this API has none: it is public and read-only.
+ */
+function apiServers(): { url: string; description: string }[] {
+  const servers = [{ url: '/', description: 'This deployment' }];
+
+  const productionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL;
+  if (productionUrl) {
+    servers.push({ url: `https://${productionUrl}`, description: 'Production' });
+  }
+
+  // Only offer localhost where it can actually answer. Listing it in the
+  // deployed dropdown is just an invitation to hit this bug again.
+  if (!process.env.VERCEL) {
+    servers.push({ url: 'http://localhost:8080', description: 'Local development' });
+  }
+
+  return servers;
+}
+
 export function createOpenApiDocument(app: INestApplication): OpenAPIObject {
-  const config = new DocumentBuilder()
+  const builder = new DocumentBuilder()
     .setTitle('STØY / 26 content API')
     .setDescription(
       [
@@ -29,11 +58,13 @@ export function createOpenApiDocument(app: INestApplication): OpenAPIObject {
       ].join('\n'),
     )
     .setVersion('0.1.0')
-    .addTag('content', 'The poster content, as agreed in issue #26')
-    .addServer('http://localhost:3001', 'Local development')
-    .build();
+    .addTag('content', 'The poster content, as agreed in issue #26');
 
-  return SwaggerModule.createDocument(app, config);
+  for (const server of apiServers()) {
+    builder.addServer(server.url, server.description);
+  }
+
+  return SwaggerModule.createDocument(app, builder.build());
 }
 
 /**

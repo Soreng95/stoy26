@@ -1,14 +1,34 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { MoneyDto } from './money.dto';
+
 export class TicketPriceDto {
-  @ApiProperty({ example: 'Fra / From' })
+  @ApiProperty({
+    example: 'Fra / From',
+    description: 'The word printed before the amount. Copy, so genuinely a string.',
+  })
   label!: string;
 
-  @ApiProperty({ example: '690 NOK' })
-  amount!: string;
+  @ApiProperty({
+    type: MoneyDto,
+    description: 'The cheapest ticket. A number plus a currency — see MoneyDto for why it is in øre.',
+  })
+  from!: MoneyDto;
 
-  @ApiProperty({ example: 'Early bird til 31.08' })
+  @ApiProperty({
+    example: 'Early bird til 31.08',
+    description: 'The small print under the amount. Copy.',
+  })
   note!: string;
+
+  @ApiProperty({
+    example: '2026-08-31',
+    format: 'date',
+    description:
+      'When the early-bird price ends. Separate from `note` so the frontend can stop showing ' +
+      'the offer by itself, instead of someone remembering to edit the copy on 1 September.',
+  })
+  earlyBirdUntil!: string;
 }
 
 /**
